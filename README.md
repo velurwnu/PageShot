@@ -1,4 +1,126 @@
+<div align="center">
+
 # PageShot
+
+**English** | [Русский](#pageshot-ru)
+
+</div>
+
+---
+
+## PageShot
+
+A Safari extension for macOS: capture the **entire webpage**, **visible viewport**, or a **selected element** in a single click. The page auto-scrolls, and frames are stitched seamlessly into a clean PNG, WebP, or JPEG. Completely private: zero servers, zero telemetry, everything happens locally in your browser.
+
+---
+
+### Features
+
+- **Full Page, Visible Area, or DOM Element:** Capture full scrolling pages, the visible window, or pick an individual element (long tables, posts, chat containers).
+- **Smart Sticky & Fixed Handling:** Headers with `position: sticky` are not duplicated on every frame; floating action buttons, modals, and chat bubbles appear only once (or can be hidden entirely).
+- **Lazy Loading Pre-fetch:** Pre-scrolls to trigger lazy images before recording frames.
+- **Inner Scrollable Containers:** Seamlessly handles web apps where an inner container scrolls instead of the main window (e.g. webmail, chat messengers).
+- **Retina & 1× Scaling:** Crystal-clear Retina (2×) or standard 1×. Ultra-long pages automatically split into manageable segments to prevent browser canvas memory limits.
+- **Export to PNG, WebP & JPEG:** Includes a live quality slider with instant file-size calculation before downloading; one-click copy to clipboard.
+- **Escape to Cancel:** Press `Esc` anytime to abort capture and restore the page's original scroll position and styles.
+
+---
+
+### Quick Test without Xcode
+
+In modern Safari, you can load the extension folder temporarily:
+
+1. Safari → Settings → Advanced → check **"Show features for web developers"**.
+2. Developer menu → **"Add Temporary Extension…"** → select the `extension` folder.
+3. Safari → Settings → Extensions → enable **PageShot**.
+
+*(Temporary extensions are unloaded after 24 hours or on browser restart. For permanent installation, build below).*
+
+---
+
+### Build and Installation
+
+Requires **Xcode** from the Mac App Store:
+
+```bash
+cd PageShot
+./build.sh
+```
+
+The script:
+1. Generates an Xcode project using `xcrun safari-web-extension-packager`.
+2. Compiles the container app `PageShot.app` with the extension bundle inside.
+3. Links the modern vector icon in Icon Composer format (`art/AppIcon.icon`) for macOS Liquid Glass support.
+4. Moves the app to `/Applications` and registers the extension in Safari.
+
+**Code Signing:**
+If your keychain contains an "Apple Development" certificate (available with any free Apple ID via Xcode → Settings → Accounts), the script signs the app automatically. Safari will keep the extension permanently enabled. Without a developer certificate, the build is ad-hoc signed, requiring Developer → "Allow Unsigned Extensions" in Safari (which resets when Safari closes). You can specify your Team ID manually:
+```bash
+TEAM_ID=ABCDE12345 ./build.sh
+```
+
+After building:
+1. Safari → Settings → Extensions → check **PageShot**.
+2. Click **"Website Settings…"** → set "Other Websites: Allow" to prevent permission prompts on every domain.
+
+### Working with Xcode
+
+```bash
+./build.sh xcode
+```
+Creates a project in `xcode/` linked to `extension/`. You can edit HTML/JS/CSS directly and press **⌘B** in Xcode.
+
+---
+
+### How to Use
+
+Click the PageShot button in the Safari toolbar → choose **"Entire Page"**, **"Visible Area"**, or **"Select Element"**. The button displays live percentage progress during capture. The stitched result opens in a preview tab with format and scale controls.
+
+- **Element Capture:** Hover over any page element to highlight it, showing tag name and dimensions. Click (or press `Enter`) to capture, press `↑` to expand to parent element, `↓` to narrow back down, `Esc` to cancel. Floating headers over the element are automatically hidden.
+- **Formats:** PNG (lossless), WebP, and JPEG (quality 80–85 produces 3–10× smaller files). Safari doesn't support native WebP encoding on canvas, so PageShot includes a high-performance WebAssembly build of `libwebp` with SIMD acceleration (`vendor/webp`) running in a Web Worker.
+- **Shortcuts:** `⌥⇧S` (Entire Page), `⌥⇧V` (Visible Area), `⌥⇧E` (Element).
+
+---
+
+### Architecture & Resource Footprint
+
+```
+extension/
+├── manifest.json   Manifest V3
+├── background.js   Coordinates capture, takes screenshots (tabs.captureVisibleTab), saves to IndexedDB
+├── agent.js        Injected on-demand: inspects DOM, scrolls page, coordinates frame captures
+├── popup.*         Toolbar dropdown menu
+├── result.*        Canvas frame stitching, export controls, and clipboard copy
+├── webp-worker.js  Web Worker for parallel WebP encoding
+├── vendor/webp/    libwebp compiled to WebAssembly (Apache-2.0 / BSD)
+└── icons/
+art/
+├── AppIcon.icon    Liquid Glass vector icon for macOS 26+
+└── *.svg           Vector source icons
+tools/install-icon.py  Connects AppIcon.icon to generated Xcode project
+build.sh            Automated build script
+```
+
+**Zero Idle Footprint:**
+- No scripts are injected before clicking capture (no permanent `content_scripts`).
+- Background worker is event-driven and unloads automatically during idle.
+- Captured frames are stored in `IndexedDB` during the session and purged immediately when the preview tab is closed.
+
+---
+
+<br>
+
+<a name="pageshot-ru"></a>
+
+<div align="center">
+
+[English](#pageshot) | **Русский**
+
+</div>
+
+---
+
+## PageShot [RU]
 
 Расширение для Safari: скриншот **всей страницы**, **видимой области** или **выбранного элемента** в один клик.
 Страница прокручивается сама, кадры склеиваются в один PNG, WebP или JPEG. Без серверов, без аналитики:
