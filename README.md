@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="extension/icons/icon-128.png" width="128" alt="PageShot Icon">
+
 # PageShot
 
 **English** | [Русский](#pageshot-ru)
