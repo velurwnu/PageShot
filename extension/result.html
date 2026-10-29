@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PageShot</title>
+  <link rel="icon" href="icons/icon-64.png">
+  <link rel="stylesheet" href="glass.css">
+  <link rel="stylesheet" href="result.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="info">
+      <img class="logo" src="icons/icon-64.png" alt="" width="32" height="32">
+      <div class="meta">
+        <div id="title" class="title">PageShot</div>
+        <div class="line">
+          <a id="url" class="url" target="_blank" rel="noopener noreferrer"></a>
+          <span id="dims" class="dims"></span>
+        </div>
+      </div>
+    </div>
+    <div id="actions" class="actions" hidden>
+      <div id="scale" class="glass seg" role="group" aria-label="Разрешение" hidden></div>
+      <div id="format" class="glass seg" role="group" aria-label="Формат">
+        <button type="button" data-fmt="png">PNG</button>
+        <button type="button" data-fmt="webp">WebP</button>
+        <button type="button" data-fmt="jpeg">JPEG</button>
+      </div>
+      <label id="qualityBox" class="glass quality" title="Качество сжатия: меньше — легче файл, но заметнее артефакты" hidden>
+        <span>Качество</span>
+        <input id="quality" type="range" min="30" max="100" step="1" value="85">
+        <output id="qualityVal" for="quality">85</output>
+      </label>
+      <button id="save" class="glass tinted btn" type="button">Сохранить PNG</button>
+      <button id="copy" class="glass icon-btn" type="button" aria-label="Копировать" title="В буфер обмена всегда копируется PNG">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5V6.5a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="notice" class="glass notice" hidden></div>
+
+  <main id="stage" class="stage">
+    <div id="status" class="status">
+      <div class="glass status-pill">
+        <div class="spinner" aria-hidden="true"></div>
+        <div id="statusText">Загружаю кадры…</div>
+      </div>
+    </div>
+    <div id="parts" class="parts"></div>
+    <section id="error" class="glass error" hidden>
+      <div class="error-icon" aria-hidden="true">!</div>
+      <h1 id="errTitle">Не получилось сделать снимок</h1>
+      <p id="errText" class="err-text"></p>
+      <ul id="errHints" class="hints"></ul>
+    </section>
+  </main>
+
+  <div id="toast" class="glass toast" role="status" aria-live="polite"></div>
+  <script src="result.js"></script>
+</body>
+</html>

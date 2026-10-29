@@ -1,0 +1,96 @@
+/* Меню расширения как обычное меню macOS: без своей подложки, прямо на стекле
+   поповера Safari; системные цвета текста, иконки SF Symbols в цвет текста. */
+
+:root {
+  color-scheme: light dark;
+  --label: rgba(0, 0, 0, 0.85);
+  --secondary: rgba(0, 0, 0, 0.5);
+  --hover: rgba(0, 0, 0, 0.07);
+  --press: rgba(0, 0, 0, 0.12);
+  --separator: rgba(0, 0, 0, 0.1);
+  --danger: #d70015;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --label: rgba(255, 255, 255, 0.88);
+    --secondary: rgba(255, 255, 255, 0.5);
+    --hover: rgba(255, 255, 255, 0.1);
+    --press: rgba(255, 255, 255, 0.16);
+    --separator: rgba(255, 255, 255, 0.12);
+    --danger: #ff6961;
+  }
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body {
+  margin: 0;
+  background: transparent;
+}
+
+body {
+  width: 236px;
+  padding: 6px;
+  color: var(--label);
+  font: 13px/1.2 -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  height: 30px;
+  padding: 0 10px 0 8px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: default;
+}
+button:hover:not(:disabled) { background: var(--hover); }
+button:active:not(:disabled) { background: var(--press); }
+button:disabled { opacity: 0.35; }
+button:focus { outline: none; }
+button:focus-visible { box-shadow: 0 0 0 2px -apple-system-control-accent; }
+
+.icon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+/* галочка видна, только когда пункт включён, — как в меню macOS */
+.check { width: 14px; margin: 0 2px; visibility: hidden; }
+[aria-checked="true"] .check { visibility: visible; }
+
+.label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.separator {
+  height: 1px;
+  margin: 5px 10px;
+  background: var(--separator);
+}
+
+.note {
+  margin: 6px 10px 2px;
+  color: var(--secondary);
+  font-size: 11.5px;
+  line-height: 1.35;
+}
+.note.err { color: var(--danger); }

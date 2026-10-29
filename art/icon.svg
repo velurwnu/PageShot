@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#5B9BFF"/>
+      <stop offset="1" stop-color="#1D44C4"/>
+    </linearGradient>
+    <linearGradient id="page" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E4ECFF"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-20%" width="160%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0A1C66" flood-opacity="0.38"/>
+    </filter>
+  </defs>
+
+  <rect x="100" y="100" width="824" height="824" rx="186" fill="url(#bg)"/>
+
+  <!-- длинная страница -->
+  <rect x="356" y="222" width="312" height="580" rx="32" fill="url(#page)" filter="url(#shadow)"/>
+  <rect x="396" y="266" width="232" height="118" rx="16" fill="#8FB0FF"/>
+  <g fill="#C3D3F7">
+    <rect x="396" y="418" width="232" height="22" rx="11"/>
+    <rect x="396" y="462" width="188" height="22" rx="11"/>
+    <rect x="396" y="506" width="214" height="22" rx="11"/>
+    <rect x="396" y="568" width="232" height="22" rx="11"/>
+    <rect x="396" y="612" width="160" height="22" rx="11"/>
+    <rect x="396" y="656" width="204" height="22" rx="11"/>
+    <rect x="396" y="718" width="120" height="22" rx="11"/>
+  </g>
+
+  <!-- рамка захвата -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="34" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M286 270 V206 A46 46 0 0 1 332 160 H396"/>
+    <path d="M628 160 H692 A46 46 0 0 1 738 206 V270"/>
+    <path d="M286 754 V818 A46 46 0 0 0 332 864 H396"/>
+    <path d="M628 864 H692 A46 46 0 0 0 738 818 V754"/>
+  </g>
+</svg>

@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "PageShot",
+  "short_name": "PageShot",
+  "version": "1.0.0",
+  "description": "Скриншот всей страницы, видимой области или выбранного элемента: прокрутка, склейка, PNG/WebP/JPEG.",
+  "icons": {
+    "48": "icons/icon-48.png",
+    "64": "icons/icon-64.png",
+    "96": "icons/icon-96.png",
+    "128": "icons/icon-128.png",
+    "256": "icons/icon-256.png",
+    "512": "icons/icon-512.png",
+    "1024": "icons/icon-1024.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "PageShot — скриншот страницы",
+    "default_icon": {
+      "16": "icons/toolbar-16.png",
+      "19": "icons/toolbar-19.png",
+      "32": "icons/toolbar-32.png",
+      "38": "icons/toolbar-38.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "commands": {
+    "capture-full": {
+      "suggested_key": { "default": "Alt+Shift+S" },
+      "description": "Скриншот всей страницы"
+    },
+    "capture-visible": {
+      "suggested_key": { "default": "Alt+Shift+V" },
+      "description": "Скриншот видимой области"
+    },
+    "capture-element": {
+      "suggested_key": { "default": "Alt+Shift+E" },
+      "description": "Скриншот выбранного элемента"
+    }
+  }
+}

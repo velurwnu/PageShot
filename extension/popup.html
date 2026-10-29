@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PageShot</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <menu>
+    <li><button id="full" type="button">
+      <i class="icon" style="--icon: url(icons/sf/full.png)"></i>
+      <span class="label">Вся страница</span>
+    </button></li>
+    <li><button id="visible" type="button">
+      <i class="icon" style="--icon: url(icons/sf/visible.png)"></i>
+      <span class="label">Видимая область</span>
+    </button></li>
+    <li><button id="element" type="button">
+      <i class="icon" style="--icon: url(icons/sf/element.png)"></i>
+      <span class="label">Выбрать элемент</span>
+    </button></li>
+    <li class="separator" role="separator"></li>
+    <li><button id="lazy" type="button" role="menuitemcheckbox" aria-checked="false">
+      <i class="icon check" style="--icon: url(icons/sf/check.png)"></i>
+      <span class="label">Догружать картинки</span>
+    </button></li>
+    <li><button id="hideFixed" type="button" role="menuitemcheckbox" aria-checked="false">
+      <i class="icon check" style="--icon: url(icons/sf/check.png)"></i>
+      <span class="label">Скрывать шапки и кнопки</span>
+    </button></li>
+  </menu>
+  <p id="note" class="note" hidden></p>
+  <script src="popup.js"></script>
+</body>
+</html>
