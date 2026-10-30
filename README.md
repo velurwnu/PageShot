@@ -56,6 +56,17 @@ The script:
 4. Moves the app to `/Applications` and registers the extension in Safari.
 
 **Code Signing:**
+Pre-built releases and local builds use a free **Apple Development: Personal Team** certificate (or ad-hoc signature if built without an account). Because free certificates are not notarized through a paid Apple Developer account, macOS Gatekeeper may prevent the application from opening on other Macs.
+
+> [!NOTE]
+> **How to launch the app on macOS (Gatekeeper):**
+> - **Right-click (or Control-click)** `PageShot.app` in Finder → select **"Open"** → confirm by clicking **"Open"**; or
+> - Open **System Settings** → **Privacy & Security** → scroll down to the Security section and click **"Open Anyway"**; or
+> - In Terminal, remove the quarantine attribute:
+>   ```bash
+>   xattr -cr /Applications/PageShot.app
+>   ```
+
 If your keychain contains an "Apple Development" certificate (available with any free Apple ID via Xcode → Settings → Accounts), the script signs the app automatically. Safari will keep the extension permanently enabled. Without a developer certificate, the build is ad-hoc signed, requiring Developer → "Allow Unsigned Extensions" in Safari (which resets when Safari closes). You can specify your Team ID manually:
 ```bash
 TEAM_ID=ABCDE12345 ./build.sh
@@ -172,12 +183,18 @@ cd PageShot
 добавляет сама. Иконку можно открыть и поправить в Icon Composer (входит в Xcode). Если после
 переустановки Finder показывает старую иконку — `killall Finder Dock`.
 
-**Подпись.** Если в связке ключей есть сертификат «Apple Development» (появляется, когда войдёшь своим
-Apple ID в Xcode → Settings → Accounts — подойдёт и бесплатный аккаунт), скрипт подпишет им
-приложение. Тогда Safari видит расширение всегда. Без сертификата сборка подписывается локально,
-и в Safari нужно включать «Разработчик → Разрешить неподписанные расширения» —
-**эта галочка сбрасывается при каждом перезапуске Safari**. Team ID можно задать вручную:
-`TEAM_ID=ABCDE12345 ./build.sh`.
+**Подпись.** Готовые сборки и локальные билды используют бесплатный сертификат **Apple Development: Personal Team** (сертификат разработчика в связке ключей, который появляется при входе бесплатным Apple ID в Xcode → Settings → Accounts). Так как сертификат бесплатный и приложение не проходит платную нотаризацию Apple, система защиты macOS Gatekeeper при первом запуске может заблокировать открытие.
+
+> [!NOTE]
+> **Как пользователям запускать приложение на macOS:**
+> - **ПКМ по приложению** → «Открыть» → подтвердить; либо
+> - **Системные настройки** → **Конфиденциальность и безопасность** → нажать **«Всё равно открыть»**; либо
+> - В терминале снять атрибут карантина:
+>   ```bash
+>   xattr -cr /Applications/PageShot.app
+>   ```
+
+Без сертификата сборка подписывается локально (ad-hoc), и в Safari нужно включать «Разработчик → Разрешить неподписанные расширения» — **эта галочка сбрасывается при каждом перезапуске Safari**. Team ID можно задать вручную: `TEAM_ID=ABCDE12345 ./build.sh`.
 
 После установки:
 
